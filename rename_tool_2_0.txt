@@ -1,0 +1,36 @@
+@echo off
+setlocal enabledelayedexpansion
+echo;
+echo;
+echo 　　　　　　　　～リネームツール1.0～
+echo;
+echo 　◇説明◇
+echo;
+echo 　　　　　複数ファイルのファイル名を連番でリネームします。
+echo;
+echo 　　　　　　　　　　形式：{固定文字列}-{連番2桁}.{拡張子}
+echo;
+echo 　◇使い方◇
+echo;
+echo 　　　　　１．エクスプローラーでリネームしたいファイルをすべて選択
+echo;
+echo 　　　　　２．『1番目のファイル』を持って、このバッチファイルにドラッグ＆ドロップ
+echo;
+echo 　　　　　３．固定文字列を入力してEnterを押下
+echo;
+echo ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+echo;
+echo;
+set /p prefix="固定文字列を入力してください："
+set prefix=!prefix!-
+set pad=2
+set num=1
+
+for %%F in (%*) do (
+  set padnum=00000000!num!
+  set extention=%%~xF
+  ren %%F !prefix!!padnum:~-%pad%!!extention!
+  set /a num+=1
+)
+
+endlocal    
